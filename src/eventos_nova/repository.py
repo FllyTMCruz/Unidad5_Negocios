@@ -1,0 +1,1 @@
+"""Persistencia de Eventos Nova con SQLAlchemy (PENDIENTE, Integrante 1)."""
