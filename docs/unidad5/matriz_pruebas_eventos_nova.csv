@@ -1,1 +1,13 @@
-id,regla,descripcion,entrada,resultado_esperado,tipo,prueba,estado
+id_caso,regla_negocio,tipo_caso,descripcion,datos_entrada,resultado_esperado
+TC-01,BR-15,Éxito,Asignación normal de 10 proveedores a un evento,10 proveedores válidos,Asignación exitosa; total 10 asignaciones
+TC-02,BR-04,Éxito,Confirmación de proveedor dentro del SLA,Confirmación a las 24 horas (UTC),evaluar_sla retorna True
+TC-03,CuentaDePagos,Éxito,Registro válido de abono incrementando saldo,Pago de 5000.0,Saldo actualizado a 5000.0
+TC-04,CuentaDePagos,Éxito,Devolución parcial válida decrementando saldo,Devolución de 2000.0 con saldo 5000.0,Saldo restante de 3000.0
+TC-05,CuentaDePagos,Éxito,Cálculo y aplicación de devolución por método delegado,calcular_devolucion de 1000.0,Devuelve 1000.0 y saldo en 2000.0
+TC-06,BR-15,Error,Creación de evento con lista inicial de más de 15 proveedores,Lista inicial con 16 asignaciones,ValueError: un evento no puede tener mas de 15 proveedores
+TC-07,CuentaDePagos,Error,Creación de cuenta con saldo inicial negativo,saldo = -100.0,ValueError: el saldo no puede ser negativo
+TC-08,CuentaDePagos,Error,Registro de abono con monto cero o negativo,monto = -50.0,ValueError: el monto debe ser positivo
+TC-09,CuentaDePagos,Error,Solicitud de devolución que excede el saldo disponible,Devolución de 9999.0 con saldo 1000.0,ValueError: la devolucion no puede exceder el saldo
+TC-10,BR-15,Límite,Asignación hasta el límite de 15 y desbordamiento en el 16,Asignar proveedor 15 exitoso y luego el 16,Éxito en 15 y ValueError en el 16
+TC-11,BR-04,Límite,Confirmación en el límite exacto del SLA de 48 horas,fecha_cofirmacion a las 48 h exactas (UTC),evaluar_sla retorna True
+TC-12,BR-04,Límite,Confirmación rebasando el SLA por una hora (49 horas),fecha_cofirmacion a las 49 h (UTC),evaluar_sla retorna False
