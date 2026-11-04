@@ -25,3 +25,25 @@ def test_cannot_confirm_twice():
     order.confirm()
     with pytest.raises(ValueError, match="already confirmed"):
         order.confirm()
+def test_vip_discount_total_200():
+    # Arrange: Pedido de 200 con vip=True
+    order = Order(total=200, vip=True)
+
+    # Act: Confirmar pedido y calcular cobro
+    charged = order.confirm()
+
+    # Assert: 15% de descuento aplicado (200 * 0.85 = 170)
+    assert charged == 170
+    assert order.status == "CONFIRMED"
+
+
+def test_regular_no_discount_total_200():
+    # Arrange: Pedido de 200 con vip=False
+    order = Order(total=200, vip=False)
+
+    # Act: Confirmar pedido
+    charged = order.confirm()
+
+    # Assert: Monto integro de 200
+    assert charged == 200
+    assert order.status == "CONFIRMED"
