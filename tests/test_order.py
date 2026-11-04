@@ -17,3 +17,9 @@ def test_customer_debt():
 def test_invalid_total(total):
     with pytest.raises(ValueError):
         Order(total).confirm()
+
+def test_cannot_confirm_twice():
+    order = Order(100)
+    order.confirm()
+    with pytest.raises(ValueError, match="already confirmed"):
+        order.confirm()
